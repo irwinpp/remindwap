@@ -1,37 +1,47 @@
 'use client';
 
 import { useState } from 'react';
-import { Bell, ChevronLeft, Plus, Edit2 } from 'lucide-react';
+import { Plus, CheckCircle, ChevronLeft } from 'lucide-react';
 import './globals.css'; // Import the CSS file
 
-export default function HealthyHabitsPage() {
-  const [habits, setHabits] = useState([]);
+export default function GoalTracker() {
+  const [goals, setGoals] = useState([]);
   const [showAddForm, setShowAddForm] = useState(false);
-  const [newHabit, setNewHabit] = useState({
-    title: '',
-    description: '',
-    category: 'Personal',
-    active: true
-  });
+  const [bigGoal, setBigGoal] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const addHabit = (e) => {
+  const addGoal = async (e) => {
     e.preventDefault();
-    if (newHabit.title.trim()) {
-      setHabits([...habits, newHabit]);
-      setNewHabit({
-        title: '',
-        description: '',
-        category: 'Personal',
-        active: true
+    if (!bigGoal.trim()) return;
+  
+    setLoading(true);
+    try {
+      const response = await fetch("/api/breakdown", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ goal: bigGoal }),
       });
+  
+      const data = await response.json();
+      const newGoal = {
+        title: bigGoal,
+        steps: data.steps.map(step => ({ text: step, completed: false })),
+      };
+  
+      setGoals([...goals, newGoal]);
+      setBigGoal("");
       setShowAddForm(false);
+    } catch (error) {
+      console.error("Error fetching AI-generated steps:", error);
     }
+    setLoading(false);
   };
+  
 
-  const toggleHabit = (index) => {
-    const newHabits = [...habits];
-    newHabits[index].active = !newHabits[index].active;
-    setHabits(newHabits);
+  const toggleStep = (goalIndex, stepIndex) => {
+    const newGoals = [...goals];
+    newGoals[goalIndex].steps[stepIndex].completed = !newGoals[goalIndex].steps[stepIndex].completed;
+    setGoals(newGoals);
   };
 
   if (showAddForm) {
@@ -45,44 +55,22 @@ export default function HealthyHabitsPage() {
             >
               <ChevronLeft className="icon" />
             </button>
-            <h1>Add New Habit</h1>
+            <h1>Add New Goal</h1>
           </div>
 
-          <form onSubmit={addHabit} className="form">
+          <form onSubmit={addGoal} className="form">
             <div className="input-group">
-              <label>Title</label>
+              <label>Big Goal</label>
               <input
                 type="text"
-                value={newHabit.title}
-                onChange={(e) => setNewHabit({...newHabit, title: e.target.value})}
-                placeholder="Enter habit title"
+                value={bigGoal}
+                onChange={(e) => setBigGoal(e.target.value)}
+                placeholder="Enter your big goal..."
               />
             </div>
 
-            <div className="input-group">
-              <label>Description</label>
-              <textarea
-                value={newHabit.description}
-                onChange={(e) => setNewHabit({...newHabit, description: e.target.value})}
-                placeholder="Write a short description..."
-              />
-            </div>
-
-            <div className="input-group">
-              <label>Category</label>
-              <select
-                value={newHabit.category}
-                onChange={(e) => setNewHabit({...newHabit, category: e.target.value})}
-              >
-                <option>Personal</option>
-                <option>Work</option>
-                <option>Health</option>
-                <option>Others</option>
-              </select>
-            </div>
-
-            <button type="submit" className="save-button">
-              Save Habit
+            <button type="submit" className="save-button" disabled={loading}>
+              {loading ? "Generating Steps..." : "Break It Down"}
             </button>
           </form>
         </div>
@@ -92,33 +80,29 @@ export default function HealthyHabitsPage() {
 
   return (
     <main className="container">
-      <div className="habit-list">
-        <h1>🌱 Healthy Habits</h1>
+      <div className="goal-list">
+        <h1>🎯 Goal Tracker</h1>
 
-        <div className="habit-items">
-          {habits.map((habit, index) => (
-            <div key={index} className="habit-card">
-              <div className="habit-info">
-                <Bell className="habit-icon" />
-                <div>
-                  <h3>{habit.title}</h3>
-                  <p>Category: {habit.category}</p>
-                </div>
-              </div>
-              <label className="toggle-switch">
-                <input
-                  type="checkbox"
-                  checked={habit.active}
-                  onChange={() => toggleHabit(index)}
-                />
-                <span className="slider"></span>
-              </label>
+        <div className="goal-items">
+          {goals.map((goal, goalIndex) => (
+            <div key={goalIndex} className="goal-card">
+              <h3>{goal.title}</h3>
+              <ul className="goal-steps">
+                {goal.steps.map((step, stepIndex) => (
+                  <li key={stepIndex} className={`goal-step ${step.completed ? 'completed' : ''}`}>
+                    <button onClick={() => toggleStep(goalIndex, stepIndex)}>
+                      <CheckCircle className={`icon ${step.completed ? 'completed-icon' : ''}`} />
+                    </button>
+                    {step.text}
+                  </li>
+                ))}
+              </ul>
             </div>
           ))}
           
-          {habits.length === 0 && (
+          {goals.length === 0 && (
             <div className="empty-message">
-              Add your first habit to get started! 🌱
+              Add your first goal to get started! 🎯
             </div>
           )}
         </div>
