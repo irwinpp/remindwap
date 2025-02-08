@@ -1,8 +1,8 @@
-// app/page.js
 'use client';
 
 import { useState } from 'react';
 import { Bell, ChevronLeft, Plus, Edit2 } from 'lucide-react';
+import './globals.css'; // Import the CSS file
 
 export default function HealthyHabitsPage() {
   const [habits, setHabits] = useState([]);
@@ -36,47 +36,43 @@ export default function HealthyHabitsPage() {
 
   if (showAddForm) {
     return (
-      <main className="min-h-screen bg-gray-50 p-4">
-        <div className="max-w-md mx-auto">
-          <div className="flex items-center mb-6">
+      <main className="container">
+        <div className="form-container">
+          <div className="form-header">
             <button 
               onClick={() => setShowAddForm(false)}
-              className="text-gray-600 p-2"
+              className="back-button"
             >
-              <ChevronLeft className="w-6 h-6" />
+              <ChevronLeft className="icon" />
             </button>
-            <h1 className="text-xl font-medium ml-2">Add Habit</h1>
+            <h1>Add New Habit</h1>
           </div>
 
-          <form onSubmit={addHabit} className="space-y-4">
-            <div className="bg-white rounded-xl p-4 shadow-sm">
-              <label className="block text-sm text-gray-600 mb-1">Title</label>
+          <form onSubmit={addHabit} className="form">
+            <div className="input-group">
+              <label>Title</label>
               <input
                 type="text"
                 value={newHabit.title}
                 onChange={(e) => setNewHabit({...newHabit, title: e.target.value})}
-                placeholder="Enter Title"
-                className="w-full p-2 bg-gray-50 rounded-lg focus:outline-none"
+                placeholder="Enter habit title"
               />
             </div>
 
-            <div className="bg-white rounded-xl p-4 shadow-sm">
-              <label className="block text-sm text-gray-600 mb-1">Description</label>
+            <div className="input-group">
+              <label>Description</label>
               <textarea
                 value={newHabit.description}
                 onChange={(e) => setNewHabit({...newHabit, description: e.target.value})}
-                placeholder="Enter Description"
-                className="w-full p-2 bg-gray-50 rounded-lg focus:outline-none"
-                rows="3"
+                placeholder="Write a short description..."
               />
             </div>
 
-            <div className="bg-white rounded-xl p-4 shadow-sm">
-              <label className="block text-sm text-gray-600 mb-1">Category</label>
+            <div className="input-group">
+              <label>Category</label>
               <select
                 value={newHabit.category}
                 onChange={(e) => setNewHabit({...newHabit, category: e.target.value})}
-                className="w-full p-2 bg-gray-50 rounded-lg focus:outline-none"
               >
                 <option>Personal</option>
                 <option>Work</option>
@@ -85,10 +81,7 @@ export default function HealthyHabitsPage() {
               </select>
             </div>
 
-            <button
-              type="submit"
-              className="w-full py-3 bg-teal-500 text-white rounded-xl hover:bg-teal-600 transition-colors"
-            >
+            <button type="submit" className="save-button">
               Save Habit
             </button>
           </form>
@@ -98,49 +91,44 @@ export default function HealthyHabitsPage() {
   }
 
   return (
-    <main className="min-h-screen bg-gray-50 p-4">
-      <div className="max-w-md mx-auto">
-        <h1 className="text-xl font-medium mb-6">Habits</h1>
+    <main className="container">
+      <div className="habit-list">
+        <h1>🌱 Healthy Habits</h1>
 
-        <div className="space-y-3">
+        <div className="habit-items">
           {habits.map((habit, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-xl p-4 shadow-sm"
-            >
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <Bell className="w-5 h-5 text-teal-500" />
-                  <div>
-                    <h3 className="font-medium">{habit.title}</h3>
-                    <p className="text-sm text-gray-500">Category: {habit.category}</p>
-                  </div>
+            <div key={index} className="habit-card">
+              <div className="habit-info">
+                <Bell className="habit-icon" />
+                <div>
+                  <h3>{habit.title}</h3>
+                  <p>Category: {habit.category}</p>
                 </div>
-                <label className="relative inline-flex items-center cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={habit.active}
-                    onChange={() => toggleHabit(index)}
-                    className="sr-only peer"
-                  />
-                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-teal-500"></div>
-                </label>
               </div>
+              <label className="toggle-switch">
+                <input
+                  type="checkbox"
+                  checked={habit.active}
+                  onChange={() => toggleHabit(index)}
+                />
+                <span className="slider"></span>
+              </label>
             </div>
           ))}
           
           {habits.length === 0 && (
-            <div className="text-center text-gray-500 py-8">
+            <div className="empty-message">
               Add your first habit to get started! 🌱
             </div>
           )}
         </div>
 
+        {/* Floating Add Button */}
         <button
           onClick={() => setShowAddForm(true)}
-          className="fixed bottom-6 right-6 w-12 h-12 bg-teal-500 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-teal-600 transition-colors"
+          className="add-button"
         >
-          <Plus className="w-6 h-6" />
+          <Plus className="icon" />
         </button>
       </div>
     </main>

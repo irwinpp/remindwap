@@ -1,21 +1,183 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* General Page Styles */
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to bottom, #d1fae5, #86efac);
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Main Container */
+.container {
+  width: 90%;
+  max-width: 400px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+}
+
+/* Header */
+h1 {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+/* Form Styles */
+.form-container {
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.form-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+}
+
+.input-group {
+  margin-bottom: 16px;
+}
+
+.input-group label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input, textarea, select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.save-button {
+  width: 100%;
+  padding: 10px;
+  background: #16a34a;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.save-button:hover {
+  background: #15803d;
+}
+
+/* Habit List */
+.habit-items {
+  margin-top: 10px;
+}
+
+.habit-card {
+  background: white;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.habit-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.habit-icon {
+  color: #16a34a;
+  width: 20px;
+  height: 20px;
+}
+
+/* Toggle Switch */
+.toggle-switch {
+  position: relative;
+  width: 34px;
+  height: 20px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  background-color: #ccc;
+  border-radius: 20px;
+  width: 34px;
+  height: 20px;
+  transition: 0.4s;
+}
+
+.toggle-switch input:checked + .slider {
+  background-color: #16a34a;
+}
+
+.slider::before {
+  content: "";
+  position: absolute;
+  height: 14px;
+  width: 14px;
+  background: white;
+  border-radius: 50%;
+  top: 3px;
+  left: 3px;
+  transition: 0.4s;
+}
+
+.toggle-switch input:checked + .slider::before {
+  transform: translateX(14px);
+}
+
+/* Floating Add Button */
+.add-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #16a34a;
+  color: white;
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.add-button:hover {
+  background: #15803d;
 }
