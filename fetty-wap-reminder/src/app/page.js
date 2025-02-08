@@ -23,6 +23,11 @@ export default function GoalTracker() {
       });
   
       const data = await response.json();
+  
+      if (!data.steps || !Array.isArray(data.steps)) {
+        throw new Error("Invalid response from AI");
+      }
+  
       const newGoal = {
         title: bigGoal,
         steps: data.steps.map(step => ({ text: step, completed: false })),
@@ -36,6 +41,7 @@ export default function GoalTracker() {
     }
     setLoading(false);
   };
+  
   
 
   const toggleStep = (goalIndex, stepIndex) => {
