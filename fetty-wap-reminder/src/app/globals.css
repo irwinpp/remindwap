@@ -143,3 +143,138 @@ input {
 .add-button:hover {
   background: #1d4ed8;
 }
+.goal-tracker-container {
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.goal-title {
+  text-transform: capitalize;
+  text-align: center;
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.goal-card {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.goal-steps {
+  list-style: none;
+  padding: 0;
+}
+
+.goal-step {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  padding: 8px;
+  background: #f0f0f0;
+  border-radius: 6px;
+}
+
+.step-content {
+  flex-grow: 1;
+}
+
+.checkbox {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+.container {
+  max-width: 420px;
+  margin: auto;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.goal-list h1 {
+  text-align: center;
+  font-size: 1.4em;
+  margin-bottom: 15px;
+}
+
+.goal-card {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.goal-title {
+  font-size: 1.2em;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.goal-steps {
+  list-style: none;
+  padding: 0;
+}
+
+.goal-step {
+  display: flex;
+  align-items: center;
+  background: #f3f3f3;
+  padding: 8px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  transition: background 0.3s ease;
+}
+
+.goal-step.completed {
+  background: #dfffd7;
+}
+
+.check-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.icon {
+  color: gray;
+  transition: color 0.3s ease;
+}
+
+.icon.checked {
+  color: green;
+}
+
+.step-text {
+  flex-grow: 1;
+}
+
+.add-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 50%;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.add-button:hover {
+  background: #0056b3;
+}
+
