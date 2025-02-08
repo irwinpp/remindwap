@@ -23,16 +23,17 @@ export default function GoalTracker() {
       });
   
       const data = await response.json();
-  
+
       if (!data.steps || !Array.isArray(data.steps)) {
         throw new Error("Invalid response from AI");
       }
-  
+
       const newGoal = {
         title: bigGoal,
+        intro: data.intro || "Here are your steps to achieve your goal:", // Ensure intro is separate
         steps: data.steps.map(step => ({ text: step, completed: false })),
       };
-  
+
       setGoals([...goals, newGoal]);
       setBigGoal("");
       setShowAddForm(false);
@@ -41,8 +42,6 @@ export default function GoalTracker() {
     }
     setLoading(false);
   };
-  
-  
 
   const toggleStep = (goalIndex, stepIndex) => {
     const newGoals = [...goals];
@@ -72,6 +71,7 @@ export default function GoalTracker() {
                 value={bigGoal}
                 onChange={(e) => setBigGoal(e.target.value)}
                 placeholder="Enter your big goal..."
+                required
               />
             </div>
 
@@ -92,14 +92,16 @@ export default function GoalTracker() {
         <div className="goal-items">
           {goals.map((goal, goalIndex) => (
             <div key={goalIndex} className="goal-card">
-              <h3>{goal.title}</h3>
+              <h3 className="goal-title">{goal.title}</h3>
+              <p className="goal-intro">{goal.intro}</p> {/* Intro text without checkmark */}
+
               <ul className="goal-steps">
                 {goal.steps.map((step, stepIndex) => (
                   <li key={stepIndex} className={`goal-step ${step.completed ? 'completed' : ''}`}>
-                    <button onClick={() => toggleStep(goalIndex, stepIndex)}>
-                      <CheckCircle className={`icon ${step.completed ? 'completed-icon' : ''}`} />
+                    <button onClick={() => toggleStep(goalIndex, stepIndex)} className="check-button">
+                      <CheckCircle className={`icon ${step.completed ? 'checked' : ''}`} />
                     </button>
-                    {step.text}
+                    <span className="step-text">{step.text}</span>
                   </li>
                 ))}
               </ul>
