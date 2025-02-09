@@ -105,7 +105,7 @@ export default function GoalTracker() {
               <h3 className="goal-title">{goal.title}</h3>
 
               {goal.showInfo && (
-                <div classname="goal-info">
+                <div className="goal-info">
                   <p className="goal-intro">{goal.intro}</p> {/* Intro text without checkmark */}
                   <ul className="goal-steps">
                     {goal.steps.map((step, stepIndex) => (
