@@ -143,3 +143,30 @@ input {
 .add-button:hover {
   background: #1d4ed8;
 }
+
+.company
+{
+  font-size: 35px;
+  font-weight: bold;
+  margin-top: 16px;
+  color: black
+
+}
+.container {
+  position: relative;
+  background-color: white;
+  /* Add any other styles for your main container */
+}
+
+.company-logo {
+  position: absolute;
+  max-width: 300px;
+  top: -300px; /* Adjust this value to position it higher or lower */
+  left: 70px; /* Adjust this value to position it more to the right or left */
+  font-size: 24px; /* Adjust the font size as needed */
+  font-weight: bold;
+  z-index: 50; /* Ensures it's on top of other elements */
+  /* Add any other styles you want for the company name */
+}
+
+
