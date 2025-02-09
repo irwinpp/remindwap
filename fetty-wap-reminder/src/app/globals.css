@@ -218,7 +218,8 @@ input {
   font-size: 1.2em;
   font-weight: bold;
   text-align: center;
-  margin-bottom: 10px;
+  margin-top: 30px;
+  
 }
 
 .goal-steps {
@@ -276,5 +277,25 @@ input {
 
 .add-button:hover {
   background: #0056b3;
+}
+
+.toggle-info-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  float: right;
+  margin-bottom: -10px;
+}
+
+.toggle-info-button .icon {
+  transition: transform 0.2s ease;
+}
+
+.toggle-info-button .icon.expanded {
+  transform: rotate(-90deg);
+}
+
+.toggle-info-button .icon.collapsed {
+  transform: rotate(0deg);
 }
 
