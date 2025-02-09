@@ -5,7 +5,7 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-TOGETHER_API_KEY = "4415612823b21a11bf0d1db36d686a0e9ca7ba683058f874d35c60be0eb083d1"
+TOGETHER_API_KEY = "oops
 openai.api_key = os.getenv("TOGETHER_API_KEY", TOGETHER_API_KEY)
 openai.api_base = "https://api.together.xyz/v1"
 MODEL_NAME = "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo-128K"
