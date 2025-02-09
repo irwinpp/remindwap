@@ -143,6 +143,7 @@ input {
 .add-button:hover {
   background: #1d4ed8;
 }
+
 .goal-tracker-container {
   max-width: 400px;
   margin: auto;
@@ -191,11 +192,12 @@ input {
   cursor: pointer;
   padding: 0;
 }
+
 .container {
   max-width: 420px;
   margin: auto;
   padding: 20px;
-  background: #f9f9f9;
+  background: #e1dddd;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -219,7 +221,6 @@ input {
   font-weight: bold;
   text-align: center;
   margin-top: 30px;
-  
 }
 
 .goal-steps {
@@ -297,5 +298,22 @@ input {
 
 .toggle-info-button .icon.collapsed {
   transform: rotate(0deg);
+}
+
+/* Logo Image - Resize and Position */
+.logo-image {
+  display: block;
+  width: 120px; /* Increase size */
+  height: auto;
+  margin: 20px auto 10px; /* Add spacing */
+}
+
+/* Title Styling */
+.logo-title {
+  text-align: center;
+  font-size: 24px; /* Make it visible */
+  font-weight: bold;
+  margin-top: 10px; /* Space above logo */
+  color: #333; /* Darker color for readability */
 }
 

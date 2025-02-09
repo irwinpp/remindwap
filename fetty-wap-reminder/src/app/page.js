@@ -5,10 +5,10 @@ import { Plus, CheckCircle, ChevronLeft } from 'lucide-react';
 import './globals.css'; // Import the CSS file
 
 export default function GoalTracker() {
-  const [ goals, setGoals ] = useState([]);
-  const [ showAddForm, setShowAddForm ] = useState(false);
-  const [ bigGoal, setBigGoal ] = useState('');
-  const [ loading, setLoading ] = useState(false);
+  const [goals, setGoals] = useState([]);
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [bigGoal, setBigGoal] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const addGoal = async (e) => {
     e.preventDefault();
@@ -35,7 +35,7 @@ export default function GoalTracker() {
         showInfo: true,
       };
 
-      setGoals([ ...goals, newGoal ]);
+      setGoals([...goals, newGoal]);
       setBigGoal("");
       setShowAddForm(false);
     } catch (error) {
@@ -45,8 +45,8 @@ export default function GoalTracker() {
   };
 
   const toggleStep = (goalIndex, stepIndex) => {
-    const newGoals = [ ...goals ];
-    newGoals[ goalIndex ].steps[ stepIndex ].completed = !newGoals[ goalIndex ].steps[ stepIndex ].completed;
+    const newGoals = [...goals];
+    newGoals[goalIndex].steps[stepIndex].completed = !newGoals[goalIndex].steps[stepIndex].completed;
     setGoals(newGoals);
   };
 
@@ -94,6 +94,14 @@ export default function GoalTracker() {
   return (
     <main className="container">
       <div className="goal-list">
+        
+        {/* LOGO IMAGE */}
+        <img 
+          src="/fettyway.png" 
+          alt="Logo" 
+          className="logo-image"
+        />
+
         <h1>🎯 Goal Tracker</h1>
 
         <div className="goal-items">
@@ -106,7 +114,7 @@ export default function GoalTracker() {
 
               {goal.showInfo && (
                 <div className="goal-info">
-                  <p className="goal-intro">{goal.intro}</p> {/* Intro text without checkmark */}
+                  <p className="goal-intro">{goal.intro}</p> 
                   <ul className="goal-steps">
                     {goal.steps.map((step, stepIndex) => (
                       <li key={stepIndex} className={`goal-step ${step.completed ? 'completed' : ''}`}>
@@ -136,6 +144,7 @@ export default function GoalTracker() {
         >
           <Plus className="icon" />
         </button>
+
       </div>
     </main>
   );
