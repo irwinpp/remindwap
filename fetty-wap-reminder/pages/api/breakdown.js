@@ -1,8 +1,15 @@
 import OpenAI from "openai";
+import { MongoClient } from "mongodb";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
+
+const mongoUrl = "mongodb+srv://aaroncedric2005:$amano1@responses.yicpa.mongodb.net/?retryWrites=true&w=majority&appName=responses";
+const dbName = "responses";
+const collectionName = "goals";
+
+const client = new MongoClient(mongoUrl);
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -44,6 +51,23 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: "AI response was empty." });
     }
 
+
+    //connect to mongodb
+    await client.connect();
+    const db = client.db(dbName);
+    const collection = db.collection(collectionName);
+
+    //store the openai response in the mongodb database
+    const goalDoc = {
+      goal: goal,
+      steps: stepsText.split("\n").filter(Boolean),
+    };
+
+    const result = await collection.insertOne(goalDoc);
+    console.log("Goal stored in MongoDB:", result.insertedId);
+
+    res.status(200).json({ steps: goalDoc.steps });
+
     // Convert Markdown-style formatting (e.g., **bold**) into HTML <b> tags
     const formattedSteps = stepsText
       .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>") // Replace **text** with <b>text</b>
@@ -52,8 +76,12 @@ export default async function handler(req, res) {
       .filter((step) => step.length > 0); // Remove empty lines
 
     res.status(200).json({ steps: formattedSteps });
+
   } catch (error) {
-    console.error("Error calling OpenAI API:", error);
+    console.error("Error calling OpenAI API or storing goal in MongoDB:", error);
     res.status(500).json({ error: "Failed to process goal." });
+  } finally{
+    //close the mongoDB client
+    await client.close();
   }
 }
